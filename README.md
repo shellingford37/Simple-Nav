@@ -10,7 +10,7 @@
 
 - [x] 智能本地搜索功能
 - [x] 响应式侧边栏布局
-- [x] 黑暗模式自动适配（bug已修复）
+- [x] 黑暗模式自动适配
 - [x] 多分类资源管理
 - [x] 从维基云表格获取数据，无需数据库
 - [x] 自定义背景颜色/图片/卡片数
@@ -58,15 +58,15 @@
 
 ![获取](https://nav.jianzhugo.cn/img/demo7.png)
 
-替换掉src\api\fetchData.js文件中的对应项目。
+在设置中填入相应的APIkey、datasheetId、viewId。
 
-![api](https://nav.jianzhugo.cn/img/demo5.png)
+![api](https://cdn.jsdmirror.com/gh/jianzhugo/image01/20251217130610676.png)
 
 3、自定义分类图标
 
-按表格中的分类名，修改src\components\Sidebar.vue对应的图标映射
+在设置中自定义分类图标。
 
-![图标映射](https://nav.jianzhugo.cn/img/demo6.png)
+![图标映射](https://cdn.jsdmirror.com/gh/jianzhugo/image01/20251217130740909.png)
 
 ## 其它
 
