@@ -64,7 +64,7 @@
       </button>
       <!-- 在侧边栏底部添加 -->
       <!-- 修改此处，移除 p-4 内边距 -->
-      <div class="mt-auto">
+      <!-- <div class="mt-auto">
         <router-link 
           to="/about" 
           class="flex items-center w-full p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-800 dark:text-gray-200"
@@ -72,7 +72,7 @@
           <i class="fas fa-info-circle mr-0.1"></i>
           <span class="ml-2" :class="{ 'hidden': isCollapsed }">关于本站</span>
         </router-link>
-      </div>
+      </div> -->
     </aside>
   </div>
 </template>
