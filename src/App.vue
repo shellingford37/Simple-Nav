@@ -48,10 +48,20 @@
               <template v-for="(item, index) in filteredItems" :key="item.id">
                 <!-- 卡片 -->
                 <Card :item="item" />
-                <!-- 分组分隔线：在每个分组的最后一项后显示 -->
+
+                <!-- 组内数量分隔线：每12个网站插入简单虚线 -->
+                <AdBanner
+                  v-if="needsCountDivider(index)"
+                  type="count"
+                  class="col-span-full my-2"
+                />
+
+                <!-- 分组分隔线：在每个分组的最后一项后显示，带组名 -->
                 <AdBanner
                   v-if="isLastInCategory(index) && index !== filteredItems.length - 1"
-                  class="col-span-full mt-4"
+                  type="category"
+                  :categoryName="getNextCategoryName(index)"
+                  class="col-span-full"
                 />
               </template>
             </div>
@@ -112,6 +122,36 @@ export default {
         const nextItem = this.filteredItems[index + 1];
         // 如果是最后一项或下一项的分组不同，则为分组末尾
         return !nextItem || currentItem.category !== nextItem.category;
+      };
+    },
+    // 判断是否需要在组内插入数量分隔线
+    needsCountDivider() {
+      return (index) => {
+        const currentItem = this.filteredItems[index];
+        const nextItem = this.filteredItems[index + 1];
+
+        // 如果没有下一项或下一项是不同分组，不需要组内分隔
+        if (!nextItem || currentItem.category !== nextItem.category) {
+          return false;
+        }
+
+        // 计算当前项在其分组内的位置
+        let positionInCategory = 0;
+        for (let i = 0; i <= index; i++) {
+          if (this.filteredItems[i].category === currentItem.category) {
+            positionInCategory++;
+          }
+        }
+
+        // 每12个网站插入一个组内分隔线
+        return positionInCategory > 0 && positionInCategory % 12 === 0;
+      };
+    },
+    // 获取下一个分组的名称（用于分组分隔线）
+    getNextCategoryName() {
+      return (index) => {
+        const nextItem = this.filteredItems[index + 1];
+        return nextItem ? nextItem.category : '';
       };
     }
   },
