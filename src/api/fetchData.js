@@ -2,24 +2,27 @@ const baseUrl = 'https://api.vika.cn/fusion/v1/datasheets';
 const fieldKey = 'name';
 const DEFAULT_ICON_URL = '/default.ico';
 
+
 export async function fetchData() {
   try {
     // 从localStorage读取API配置
     const apiKey = localStorage.getItem('apiKey');
     const datasheetId = localStorage.getItem('datasheetId');
     const viewId = localStorage.getItem('viewId');
-    
+    var response;
     // 检查配置是否完整
     if (!apiKey || !datasheetId || !viewId) {
-      throw new Error('API配置不完整，请前往设置页面配置');
+      //throw new Error('API配置不完整，请前往设置页面配置');
+        const apiUrl = 'page.shellingford.cn/api/nav';
+        response = await fetch(apiUrl);
+    }else{
+        const apiUrl = `${baseUrl}/${datasheetId}/records?viewId=${viewId}&fieldKey=${fieldKey}&pageSize=1000`;
+        response = await fetch(apiUrl, {
+          headers: { Authorization: `Bearer ${apiKey}` },
+        });
     }
     
-    // 动态构建API URL
-    const apiUrl = `${baseUrl}/${datasheetId}/records?viewId=${viewId}&fieldKey=${fieldKey}&pageSize=1000`;
     
-    const response = await fetch(apiUrl, {
-      headers: { Authorization: `Bearer ${apiKey}` },
-    });
     if (!response.ok) {
       const errorData = await response.json();
       console.error('API请求失败:', {
