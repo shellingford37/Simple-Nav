@@ -1,26 +1,16 @@
 <template>
-  <div class="ad-container
-    h-2
-    rounded-lg 
-    p-4 
-    flex 
-    items-center 
-    justify-center 
-    border-2 
-    border-dashed 
-    border-transparent
-    dark:border-gray-800/30 
-    overflow-hidden">
-    <!-- 移除opacity-0类 -->
-    <img 
+  <div class="divider-container">
+    <!-- 图片模式 -->
+    <img
       v-if="imageUrl"
       :src="imageUrl"
-      alt="建筑G博客"
-      class="h-max w-full object-cover object-center"
+      alt="分隔广告"
+      class="h-full w-full object-cover object-center rounded-lg"
     >
-    <span class="text-gray-500 dark:text-gray-400 text-center break-words">
-      {{ content }}
-    </span>
+    <!-- 分隔线模式 -->
+    <div v-else class="divider-line">
+      <div class="divider-gradient"></div>
+    </div>
   </div>
 </template>
 
@@ -33,32 +23,72 @@ export default {
     },
     content: {
       type: String,
-      default: '---------- 我是一条很长很长的线 ----------'  // 留空则不显示文字
+      default: ''  // 不再显示文字
     }
   }
 }
 </script>
 
 <style scoped>
-/* 强制透明背景 */
-
-.ad-container {
-  background-color: transparent !important;
+.divider-container {
+  width: 100%;
+  height: 2px;
+  position: relative;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
-/* 需要悬停效果时，移除下方注释 */
-/*
-.ad-container:hover {
-  border-color: #6366f1;
-  background-color: rgba(99, 102, 241, 0.1);
+.divider-line {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
+.divider-gradient {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(203, 213, 225, 0.3) 15%,
+    rgba(203, 213, 225, 0.6) 50%,
+    rgba(203, 213, 225, 0.3) 85%,
+    transparent 100%
+  );
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* 暗黑模式下的渐变色 */
+:global(.dark) .divider-gradient {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(71, 85, 105, 0.3) 15%,
+    rgba(71, 85, 105, 0.6) 50%,
+    rgba(71, 85, 105, 0.3) 85%,
+    transparent 100%
+  );
+}
+
+/* 添加微妙的闪烁动画 */
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* 图片模式的样式 */
 img {
   transition: transform 0.3s ease;
 }
+
 img:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
-*/
 </style>
