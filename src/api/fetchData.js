@@ -54,7 +54,14 @@ export async function fetchData() {
         icon: record.fields.icon || DEFAULT_ICON_URL,
         sortOrder: record.fields.order ? parseInt(record.fields.order) : 0,
       };
-    }).filter(Boolean).sort((a, b) => b.sortOrder - a.sortOrder);  // 修改排序逻辑为降序
+    }).filter(Boolean).sort((a, b) => {
+      // 先按分组名称排序
+      if (a.category !== b.category) {
+        return a.category.localeCompare(b.category, 'zh-CN');
+      }
+      // 同一分组内按 sortOrder 降序排序
+      return b.sortOrder - a.sortOrder;
+    });
   } catch (error) {
     console.error('数据获取失败:', {
       message: error.message,
