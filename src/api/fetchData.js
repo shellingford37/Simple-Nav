@@ -13,7 +13,7 @@ export async function fetchData() {
     // 检查配置是否完整
     if (!apiKey || !datasheetId || !viewId) {
       //throw new Error('API配置不完整，请前往设置页面配置');
-        const apiUrl = 'page.shellingford.cn/api/nav';
+        const apiUrl = 'https://page.shellingford.cn/api/nav';
         response = await fetch(apiUrl);
     }else{
         const apiUrl = `${baseUrl}/${datasheetId}/records?viewId=${viewId}&fieldKey=${fieldKey}&pageSize=1000`;
